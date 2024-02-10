@@ -10,4 +10,4 @@ export class AddHabbitButton extends HTMLElement {
   attributeChangedCallback() {}
 }
 
-window.customElements.define(AddHabbitButton.selector, AddHabbitButton);
+window.customElements.define("app-add-habbit-button", AddHabbitButton);

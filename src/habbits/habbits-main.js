@@ -1,5 +1,4 @@
 import { getAllHabbits } from "./data-access/habbits.js";
-import { HabbitsList } from "./ui/habbits-list.js";
 
 export class HabbitsMain extends HTMLElement {
   constructor() {
@@ -8,18 +7,14 @@ export class HabbitsMain extends HTMLElement {
 
   connectedCallback() {
     getAllHabbits().then((habbits) => {
-      const habbitsListElement = this.#getHabbitsListElement();
-      habbitsListElement.setAttribute("habbits", JSON.stringify(habbits));
+      const habbitsList = this.shadowRoot.querySelector("app-habbits-list");
+      habbitsList.habbits = habbits;
     });
   }
 
   disconnectedCallback() {}
   adoptedCallback() {}
   attributeChangedCallback() {}
-
-  #getHabbitsListElement() {
-    return this.querySelector(HabbitsList.selector);
-  }
 }
 
-window.customElements.define(HabbitsMain.selector, HabbitsMain);
+window.customElements.define("app-habbits-main", HabbitsMain);

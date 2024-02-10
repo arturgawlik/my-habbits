@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="My habbits is a application to make your habbits finally works.">
         <title>My habbits</title>
-        <link rel="stylesheet" href="./src/styles.css" media="screen and (max-width: 600px)">
+        <link rel="stylesheet" href="./src/styles.css" media="screen and (max-width: 600px)" rel="preload" as="style">
         <script type="module" src="./src/habbits/habbits-main.js" async></script>
         <script type="module" src="./src/habbits/ui/add-habbit-button.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list.js" async></script>
@@ -15,13 +15,13 @@
         <app-habbits-main>
             <template shadowrootmode="open">
                 <style>
+                    :host {
+                        display: flex;
+                        flex-direction: column;
+                    }
                     h1 {
                         text-align: center;
                         margin-top: 50px;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100vw;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -29,7 +29,33 @@
                 </style>
                 <h1>Checkout your habbits</h1>
                 <app-habbits-list>
-
+                    <template shadowrootmode="open">
+                        <style>
+                            :host {
+                                display: flex;
+                                flex-direction: column;
+                                overflow-y: auto;
+                            }
+                            /* p {
+                                text-align: center;
+                                font-style: italic;
+                                color: #ffe5e59e;
+                                margin: -3px;
+                            }
+                            div {
+                                text-align: center;
+                                font-style: italic;
+                                color: #ffe5e59e;
+                                margin-top: 40px;
+                            } */
+                        </style>
+                        
+                    </template> 
+                    <template #noItemsTmpl>
+                        <p>
+                            You don't have any habbits yet. Add new one!
+                        </p>
+                    </template>
                 </app-habbits-list>
                 <app-add-habbit-button>
                     <template shadowrootmode="open">
@@ -42,6 +68,7 @@
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                background-color: #756ab6;
                             }
                             button {
                                 background-color: #FFEBD8;
@@ -60,5 +87,30 @@
                 </app-add-habbit-button>
             </template>
         </app-habbits-main>
+
+        <template id="habbits-list-item-tmpl">
+            <style>
+                :host {
+                    margin-top: 10px;
+                }
+                .card, .name, .description {
+                   background-color: #EEC759;
+               }
+               .card {
+                   padding: 20px;
+                   background-color: #EEC759;
+               }
+           </style>
+           <div class="card">
+               <div>
+                 <div class="name">
+                   Napić się wody
+                 </div>
+                 <div class="description">
+                   <p>Wypij 2 szklanki wody</p>
+                 </div>
+               </div>
+           </div>
+        </template>
     </body>
 </html>
