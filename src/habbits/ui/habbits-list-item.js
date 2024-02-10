@@ -1,9 +1,37 @@
+const template = document.createElement("template");
+template.innerHTML = `
+  <style>
+    :host {
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .card {
+        padding: 10px;
+        background-color: var(--color-3);
+        color: black;
+        border-radius: 10% / 50%;
+        border: 1px solid black;
+        text-align: center;
+        font-weight: 100;
+    }
+    .name {
+        font-size: 17px;
+        font-weight: bold;
+    }
+</style>
+<div class="card">
+    <div>
+        <p class="name"></p>
+    </div>
+</div>
+`;
+
 export class HabbitsListItem extends HTMLElement {
   #habbit = null;
 
   set habbit(habbit) {
     this.#habbit = habbit;
-    // this.shadowRoot.querySelector(".habbit-name").textContent = habbit.name;
   }
 
   get habbit() {
@@ -16,9 +44,8 @@ export class HabbitsListItem extends HTMLElement {
 
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.appendChild(
-      document.getElementById("habbits-list-item-tmpl").content.cloneNode(true)
-    );
+    shadowRoot.appendChild(template.content.cloneNode(true));
+    shadowRoot.querySelector(".name").innerText = this.#habbit.name;
   }
 
   disconnectedCallback() {}

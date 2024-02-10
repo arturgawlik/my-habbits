@@ -1,3 +1,14 @@
+const template = document.createElement("template");
+template.innerHTML = `
+  <style>
+      :host {
+          display: flex;
+          flex-direction: column;
+          overflow-y: auto;
+      }
+  </style>
+`;
+
 export class HabbitsList extends HTMLElement {
   #habbits = [];
 
@@ -27,7 +38,10 @@ export class HabbitsList extends HTMLElement {
     super();
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.appendChild(template.content.cloneNode(true));
+  }
 
   disconnectedCallback() {}
   adoptedCallback() {}

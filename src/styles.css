@@ -89,12 +89,20 @@ textarea:not([rows]) {
   scroll-margin-block: 5ex;
 }
 
+/* colors varables */
+:root {
+  --color-1: #756ab6;
+  --color-2: #ac87c5;
+  --color-3: #e0aed0;
+  --color-4: #ffe5e5;
+}
+
 * {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  color: #ffe5e5;
 
-  background-color: #756ab6;
+  color: var(--color-4);
+  background-color: var(--color-1);
 }
