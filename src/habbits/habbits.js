@@ -1,4 +1,4 @@
-import { getAllHabbits } from "./data-access/habbits.js";
+import { getAllHabbits } from "../shared/data-access/habbits.js";
 
 const template = document.createElement("template");
 template.innerHTML = `

@@ -9,12 +9,8 @@ export const database = (function () {
         const db = openRequest.result;
         const habbitsObjStore = db.createObjectStore("habbits", {
           keyPath: "id",
+          autoIncrement: true,
         });
-
-        // load test data
-        for (let i = 1; i <= 100; i++) {
-          habbitsObjStore.add(generateHabbitWithRandomName(i));
-        }
       };
 
       openRequest.onsuccess = function (event) {

@@ -33,7 +33,7 @@ template.innerHTML = `
         </label>
         <label>
             Notification time
-            <input type="time" name="notification-time" />
+            <input type="time" name="notificationTime" />
         </label>
     </form>
 `;

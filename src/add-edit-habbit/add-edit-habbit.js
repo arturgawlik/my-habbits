@@ -1,3 +1,9 @@
+import {
+  getHabbit,
+  addHabbit,
+  updateHabbit,
+} from "../shared/data-access/habbits.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
@@ -23,7 +29,7 @@ class AddEditHabbit extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     const shadowRoot = this.attachShadow({
       mode: "open",
     });
@@ -36,10 +42,18 @@ class AddEditHabbit extends HTMLElement {
       this.shadowRoot
         .querySelector("app-top-header")
         .setAttribute("title", "Add habbit");
-    } else {
+    } else if (url.pathname.startsWith("/habbits")) {
+      const id = url.pathname.split("/")[2];
+      const habbit = await getHabbit(Number(id));
+      const form = this.shadowRoot.querySelector("form");
+      form.querySelector("input[name=id]").value = habbit.id;
+      form.querySelector("input[name=name]").value = habbit.name;
+      form.querySelector("input[name=description]").value = habbit.description;
+      form.querySelector("input[name=notificationTime]").value =
+        habbit.notificationTime;
       this.shadowRoot
         .querySelector("app-top-header")
-        .setAttribute("title", "Edit habbit");
+        .setAttribute("title", `Edit ${getTruncatedText(habbit.name)} habbit`);
     }
   }
 
@@ -62,7 +76,17 @@ class AddEditHabbit extends HTMLElement {
       event.preventDefault();
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      // todo: save data
+      if (data.id) {
+        data.id = Number(data.id);
+        updateHabbit(data).then(() => {
+          navigation.navigate("/");
+        });
+      } else {
+        delete data.id;
+        addHabbit(data).then(() => {
+          navigation.navigate("/");
+        });
+      }
     });
   }
 
@@ -71,10 +95,7 @@ class AddEditHabbit extends HTMLElement {
     form.addEventListener("input", (event) => {
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      let name = data.name;
-      if (name.length > 9) {
-        name = name.substring(0, 8) + "...";
-      }
+      let name = getTruncatedText(data.name);
       const url = new URL(window.location.href);
       if (url.pathname.startsWith("/add-new-habbit")) {
         this.shadowRoot
@@ -87,6 +108,10 @@ class AddEditHabbit extends HTMLElement {
       }
     });
   }
+}
+
+function getTruncatedText(text) {
+  return text.length > 9 ? text.substring(0, 8) + "..." : text;
 }
 
 window.customElements.define("app-add-edit-habbit", AddEditHabbit);
