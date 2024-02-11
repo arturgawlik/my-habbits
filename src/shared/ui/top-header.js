@@ -54,7 +54,7 @@ class TopHeader extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "title") {
       if (newValue !== this.#title) {
-        this.#title = newValue;
+        this.title = newValue;
       }
     }
   }

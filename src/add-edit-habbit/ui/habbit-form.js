@@ -1,27 +1,27 @@
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
-      .form {
+      app-habbit-form .form {
         display: flex;
         flex-direction: column;
         gap: 1rem;
       }
-      .form > * {
+      app-habbit-form .form > * {
         width: 100%;
       }
-      label {
+      app-habbit-form label {
         display: flex;
         flex-direction: column;
       }
-        input {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: var(--color-4);
-        }
+      app-habbit-form input {
+          padding: 0.5rem;
+          font-size: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: var(--color-4);
+      }
     </style>
-    <form class="form">
+    <form class="form" id="add-edit-habbit-form">
         <input type="hidden" name="id" />
         <label>
             Name *
@@ -44,10 +44,7 @@ class HabbitForm extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadowRoot = this.attachShadow({
-      mode: "open",
-    });
-    shadowRoot.appendChild(template.content.cloneNode(true));
+    this.appendChild(template.content.cloneNode(true));
   }
 
   disconnectedCallback() {}
