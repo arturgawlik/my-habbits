@@ -24,12 +24,12 @@ template.innerHTML = `
     <form class="form">
         <input type="hidden" name="id" />
         <label>
-            Name
-            <input type="text" name="name" />
+            Name *
+            <input type="text" name="name" required/>
         </label>
         <label>
-            Description
-            <input name="description" />
+            Description *
+            <input name="description" required/>
         </label>
         <label>
             Notification time
