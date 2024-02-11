@@ -5,21 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="My habbits is a application to make your habbits finally works.">
         <title>My habbits</title>
-        <link rel="stylesheet" href="./src/styles.css" media="screen and (max-width: 600px)" rel="preload" as="style">
+        <link rel="stylesheet" href="./src/styles.css" rel="preload" as="style">
     </head>
     <body>
-        <app-habbits-main></app-habbits-main>
+        <div id="root">
+        </div>
         <script type="module">
             // polyfill for Navigation API
             if (!window.navigation) {
                 window.navigation =  await import("https://cdn.skypack.dev/@virtualstate/navigation");
             }
         </script>
-        <script type="module" src="./src/habbits/habbits-main.js" async></script>
-        <script type="module" src="./src/habbits/ui/add-habbit-button.js" async></script>
+        <script type="module" src="./src/habbits/habbits.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list-item.js" async></script>
         <script type="module" src="./src/shared/ui/top-header.js" async></script>
         <script type="module" src="./src/shared/ui/bottom-button.js" async></script>
+        <script type="module" src="./src/add-edit-habbit/add-edit-habbit.js" async></script>
+        <script type="module" src="./src/navigation/navigation.js" async></script>
     </body>
 </html>

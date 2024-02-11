@@ -11,7 +11,7 @@ template.innerHTML = `
       }
 
   </style>
-  <app-top-header title="Habbits"></app-top-header>
+  <app-top-header title="My habbits"></app-top-header>
   <app-habbits-list></app-habbits-list>
   <app-bottom-button text="+ Add new +"></app-bottom-button>
 `;

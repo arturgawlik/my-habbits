@@ -1,18 +1,42 @@
-navigation.addEventListner("navigate", function (event) {
-  if (shouldNotIntercept(event)) {
-    return;
+const VIEWS = {
+  HABBITS: "habbits",
+  HABBIT_ADD_EDIT: "habbit-add-edit",
+};
+
+function listenNavigationEvent() {
+  navigation.addEventListener("navigate", (e) => {
+    e.intercept({
+      handler: performNavigationBasedOnUrl,
+    });
+    console.log(e);
+  });
+}
+
+function performNavigationBasedOnUrl() {
+  const url = new URL(window.location.href);
+  if (url.pathname === "/habbits" || url.pathname === "/") {
+    navigateToView(VIEWS.HABBITS);
+  } else if (url.pathname.startsWith("/habbits/")) {
+    navigateToView(VIEWS.HABBIT_ADD_EDIT);
+  } else {
+    navigateToView(VIEWS.HABBITS, { performNavigation: true });
   }
-});
+}
 
-function shouldNotIntercept(event) {}
+function navigateToView(view, options) {
+  switch (view) {
+    case VIEWS.HABBITS:
+      document.querySelector("#root").innerHTML =
+        "<app-habbits-main></app-habbits-main>";
+      break;
+    case VIEWS.HABBIT_ADD_EDIT:
+      document.querySelector("#root").innerHTML =
+        "<app-add-edit-habbit></app-add-edit-habbit>";
+      break;
+    default:
+      throw new Error("Unknown view");
+  }
+}
 
-// navigation.addEventListener("navigate", (e) => {
-//   e.intercept({
-//     handler: () => new Promise((resolve, reject) => {
-//       setTimeout(() => {
-//         resolve();
-//       }, 3000);
-//     }),
-//   });
-//   console.log(e);
-// });
+performNavigationBasedOnUrl();
+listenNavigationEvent();
