@@ -1,9 +1,17 @@
 const template = document.createElement("template");
 template.innerHTML = `
-    <style>
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+   app-habbit-form {
+    margin-bottom: 100px;
+    margin-top: 100px;
+   } 
   </style>
   <app-top-header title="Add/Edit habbit"></app-top-header>
-  
+  <app-habbit-form></app-habbit-form>
   <app-bottom-item>
     <app-button text="Cancel" color="secondary"></app-button>
     <app-button text="Save" color="primary"></app-button>
