@@ -5,7 +5,7 @@ template.innerHTML = `
   <app-top-header title="Add/Edit habbit"></app-top-header>
   
   <app-bottom-item>
-    <app-button text="Back" color="secondary"></app-button>
+    <app-button text="Cancel" color="secondary"></app-button>
     <app-button text="Save" color="primary"></app-button>
   </app-bottom-item>
 `;

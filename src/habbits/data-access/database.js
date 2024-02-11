@@ -8,45 +8,13 @@ export const database = (function () {
       openRequest.onupgradeneeded = function () {
         const db = openRequest.result;
         const habbitsObjStore = db.createObjectStore("habbits", {
-          autoIncrement: true,
+          keyPath: "id",
         });
 
         // load test data
-        habbitsObjStore.add({
-          name: "Drink water",
-          description: "Drink 2 liters of water",
-          cron: "0 0 12 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Walk",
-          description: "Walk 10 km",
-          cron: "0 0 6 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Read",
-          description: "Read 100 pages",
-          cron: "0 0 20 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Sleep",
-          description: "Sleep 8 hours",
-          cron: "0 0 22 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Sleep 2",
-          description: "Sleep 8 hours",
-          cron: "0 0 22 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Sleep 3",
-          description: "Sleep 8 hours",
-          cron: "0 0 22 * * *",
-        });
-        habbitsObjStore.add({
-          name: "Sleep 4",
-          description: "Sleep 8 hours",
-          cron: "0 0 22 * * *",
-        });
+        for (let i = 1; i <= 100; i++) {
+          habbitsObjStore.add(generateHabbitWithRandomName(i));
+        }
       };
 
       openRequest.onsuccess = function (event) {
@@ -63,6 +31,42 @@ export const database = (function () {
 
   function genericErrorHandler(error) {
     console.error(error);
+  }
+
+  function generateHabbitWithRandomName(id) {
+    const names = [
+      "Drink water",
+      "Walk",
+      "Read",
+      "Sleep",
+      "Code",
+      "Eat",
+      "Meditate",
+      "Exercise",
+      "Write",
+      "Study",
+    ];
+    const descriptions = [
+      "Drink 2 liters of water",
+      "Walk 10 km",
+      "Read 100 pages",
+      "Sleep 8 hours",
+      "Code for 2 hours",
+      "Eat 3 meals",
+      "Meditate for 10 minutes",
+      "Exercise for 1 hour",
+      "Write 500 words",
+      "Study for 4 hours",
+    ];
+    const name = names[Math.floor(Math.random() * names.length)];
+    const description =
+      descriptions[Math.floor(Math.random() * descriptions.length)];
+    return {
+      id,
+      name,
+      description,
+      cron: "0 0 12 * * *",
+    };
   }
 
   return {

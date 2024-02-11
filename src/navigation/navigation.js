@@ -16,7 +16,10 @@ function performNavigationBasedOnUrl() {
   const url = new URL(window.location.href);
   if (url.pathname === "/habbits" || url.pathname === "/") {
     navigateToView(VIEWS.HABBITS);
-  } else if (url.pathname.startsWith("/habbits/")) {
+  } else if (
+    url.pathname.startsWith("/habbits/") ||
+    url.pathname.startsWith("/add-new-habbit")
+  ) {
     navigateToView(VIEWS.HABBIT_ADD_EDIT);
   } else {
     navigateToView(VIEWS.HABBITS, { performNavigation: true });

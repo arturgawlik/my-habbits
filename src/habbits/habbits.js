@@ -27,11 +27,20 @@ class HabbitsMain extends HTMLElement {
     const habbits = await getAllHabbits();
     const habbitsList = this.shadowRoot.querySelector("app-habbits-list");
     habbitsList.habbits = habbits;
+
+    this.#addAddNewHabbitButtonListener();
   }
 
   disconnectedCallback() {}
   adoptedCallback() {}
   attributeChangedCallback() {}
+
+  #addAddNewHabbitButtonListener() {
+    const addNewHabbitButton = this.shadowRoot.querySelector("app-button");
+    addNewHabbitButton.addEventListener("click", () => {
+      navigation.navigate("add-new-habbit");
+    });
+  }
 }
 
 window.customElements.define("app-habbits-main", HabbitsMain);
