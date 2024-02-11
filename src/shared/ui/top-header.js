@@ -19,7 +19,7 @@ template.innerHTML = `
     <h1></h1>
 `;
 
-export class TopHeader extends HTMLElement {
+class TopHeader extends HTMLElement {
   #title = "";
 
   set title(title) {

@@ -11,7 +11,7 @@ template.innerHTML = `
   </style>
 `;
 
-export class HabbitsList extends HTMLElement {
+class HabbitsList extends HTMLElement {
   #habbits = [];
 
   set habbits(habbits) {

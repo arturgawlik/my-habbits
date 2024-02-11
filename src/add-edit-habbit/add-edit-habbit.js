@@ -1,17 +1,13 @@
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
-      :host {
-          display: flex;
-          flex-direction: column;
-          box-shadow: 2px 2px 2px var(--color-1);
-          border-bottom: 1px solid black;
-      }
-
   </style>
   <app-top-header title="Add/Edit habbit"></app-top-header>
   
-  <app-bottom-button text="Add/Update"></app-bottom-button>
+  <app-bottom-item>
+    <app-button text="Back" color="secondary"></app-button>
+    <app-button text="Save" color="primary"></app-button>
+  </app-bottom-item>
 `;
 
 class AddEditHabbit extends HTMLElement {
@@ -24,11 +20,21 @@ class AddEditHabbit extends HTMLElement {
       mode: "open",
     });
     shadowRoot.appendChild(template.content.cloneNode(true));
+    this.#listenCancelClick();
   }
 
   disconnectedCallback() {}
   adoptedCallback() {}
   attributeChangedCallback() {}
+
+  #listenCancelClick() {
+    const cancelButton = this.shadowRoot.querySelector(
+      "app-button[color=secondary]"
+    );
+    cancelButton.addEventListener("click", () => {
+      navigation.navigate("/");
+    });
+  }
 }
 
 window.customElements.define("app-add-edit-habbit", AddEditHabbit);

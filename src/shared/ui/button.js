@@ -1,15 +1,12 @@
 const tempalte = document.createElement("template");
 tempalte.innerHTML = `
   <style>
-      div {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100vw;
+      :host {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: var(--color-1);
+          width: 100%;
+          height: 100%;
       }
       button {
           background-color: var(--color-3);
@@ -24,13 +21,12 @@ tempalte.innerHTML = `
           border: 1px solid black;
       }
   </style>
-  <div>
   <button></button>
-  </div>
 `;
 
-export class BottomButton extends HTMLElement {
+class Button extends HTMLElement {
   #text = "";
+  #color = "primary";
 
   set text(text) {
     this.#text = text;
@@ -46,7 +42,21 @@ export class BottomButton extends HTMLElement {
     return this.#text;
   }
 
-  static observedAttributes = ["text"];
+  set color(color) {
+    this.#color = color;
+    if (this.shadowRoot) {
+      this.#setColor(color);
+    }
+    if (this.getAttribute("color") !== color) {
+      this.setAttribute("color", color);
+    }
+  }
+
+  get color() {
+    return this.#color;
+  }
+
+  static observedAttributes = ["text", "color"];
 
   constructor() {
     super();
@@ -57,6 +67,9 @@ export class BottomButton extends HTMLElement {
     shadowRoot.appendChild(tempalte.content.cloneNode(true));
     if (this.#text) {
       this.#setText(this.#text);
+    }
+    if (this.#color) {
+      this.#setColor(this.#color);
     }
   }
 
@@ -70,12 +83,27 @@ export class BottomButton extends HTMLElement {
         this.#text = newValue;
       }
     }
+    if (name === "color") {
+      if (newValue !== this.#color) {
+        this.#color = newValue;
+      }
+    }
   }
 
   #setText(text) {
     const button = this.shadowRoot.querySelector("button");
     button.textContent = text;
   }
+  #setColor(color) {
+    const button = this.shadowRoot.querySelector("button");
+    if (color === "primary") {
+      button.style.backgroundColor = `var(--color-3)`;
+    } else if (color === "secondary") {
+      button.style.backgroundColor = `var(--color-4)`;
+    } else {
+      button.style.backgroundColor = color;
+    }
+  }
 }
 
-window.customElements.define("app-bottom-button", BottomButton);
+window.customElements.define("app-button", Button);

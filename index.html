@@ -11,7 +11,7 @@
         <div id="root">
         </div>
         <script type="module">
-            // polyfill for Navigation API
+            // polyfill for Navigation API - curently not supported in Safari and Firefox
             if (!window.navigation) {
                 window.navigation =  await import("https://cdn.skypack.dev/@virtualstate/navigation");
             }
@@ -20,7 +20,8 @@
         <script type="module" src="./src/habbits/ui/habbits-list.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list-item.js" async></script>
         <script type="module" src="./src/shared/ui/top-header.js" async></script>
-        <script type="module" src="./src/shared/ui/bottom-button.js" async></script>
+        <script type="module" src="./src/shared/ui/button.js" async></script>
+        <script type="module" src="./src/shared/ui/bottom-item.js" async></script>
         <script type="module" src="./src/add-edit-habbit/add-edit-habbit.js" async></script>
         <script type="module" src="./src/navigation/navigation.js" async></script>
     </body>

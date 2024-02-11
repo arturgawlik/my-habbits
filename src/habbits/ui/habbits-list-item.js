@@ -32,7 +32,7 @@ template.innerHTML = `
 </a>
 `;
 
-export class HabbitsListItem extends HTMLElement {
+class HabbitsListItem extends HTMLElement {
   #habbit = null;
 
   set habbit(habbit) {

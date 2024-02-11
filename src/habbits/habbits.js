@@ -6,17 +6,17 @@ template.innerHTML = `
       :host {
           display: flex;
           flex-direction: column;
-          box-shadow: 2px 2px 2px var(--color-1);
-          border-bottom: 1px solid black;
       }
 
   </style>
   <app-top-header title="My habbits"></app-top-header>
   <app-habbits-list></app-habbits-list>
-  <app-bottom-button text="+ Add new +"></app-bottom-button>
+  <app-bottom-item>
+    <app-button text="+ Add new +" color="secondary"></app-button>
+  </app-bottom-item>
 `;
 
-export class HabbitsMain extends HTMLElement {
+class HabbitsMain extends HTMLElement {
   constructor() {
     super();
   }
