@@ -13,8 +13,8 @@ template.innerHTML = `
   <app-top-header title="Add/Edit habbit"></app-top-header>
   <app-habbit-form></app-habbit-form>
   <app-bottom-item>
-    <app-button text="Cancel" color="secondary"></app-button>
-    <app-button text="Save" color="primary"></app-button>
+    <button color="secondary" is="app-button">Cancel</button>
+    <button color="primary" is="app-button">Save</button>
   </app-bottom-item>
 `;
 
@@ -37,7 +37,7 @@ class AddEditHabbit extends HTMLElement {
 
   #listenCancelClick() {
     const cancelButton = this.shadowRoot.querySelector(
-      "app-button[color=secondary]"
+      "button[color=secondary]"
     );
     cancelButton.addEventListener("click", () => {
       navigation.navigate("/");

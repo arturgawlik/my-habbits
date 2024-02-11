@@ -12,7 +12,7 @@ template.innerHTML = `
   <app-top-header title="My habbits"></app-top-header>
   <app-habbits-list></app-habbits-list>
   <app-bottom-item>
-    <app-button text="+ Add new +" color="secondary"></app-button>
+    <button is="app-button">+ Add new +</button>
   </app-bottom-item>
 `;
 
@@ -36,7 +36,7 @@ class HabbitsMain extends HTMLElement {
   attributeChangedCallback() {}
 
   #addAddNewHabbitButtonListener() {
-    const addNewHabbitButton = this.shadowRoot.querySelector("app-button");
+    const addNewHabbitButton = this.shadowRoot.querySelector("button");
     addNewHabbitButton.addEventListener("click", () => {
       navigation.navigate("add-new-habbit");
     });
