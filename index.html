@@ -16,6 +16,12 @@
                 window.navigation =  await import("https://cdn.skypack.dev/@virtualstate/navigation");
             }
         </script>
+        <script type="module">
+            // polyfill for Temporal API
+            if (!window.Temporal) {
+                await import("https://cdn.jsdelivr.net/npm/temporal-polyfill@0.2.1/global.min.js");
+            }
+        </script>
         <script type="module" src="./src/habbits/habbits.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list.js" async></script>
         <script type="module" src="./src/habbits/ui/habbits-list-item.js" async></script>

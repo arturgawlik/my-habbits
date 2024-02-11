@@ -12,10 +12,17 @@ template.innerHTML = `
       label {
         display: flex;
         flex-direction: column;
-        /* gap: 0.5rem; */
       }
+        input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: var(--color-4);
+        }
     </style>
     <form class="form">
+        <input type="hidden" name="id" />
         <label>
             Name
             <input type="text" name="name" />
