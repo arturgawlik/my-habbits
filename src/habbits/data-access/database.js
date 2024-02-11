@@ -32,6 +32,21 @@ export const database = (function () {
           description: "Sleep 8 hours",
           cron: "0 0 22 * * *",
         });
+        habbitsObjStore.add({
+          name: "Sleep 2",
+          description: "Sleep 8 hours",
+          cron: "0 0 22 * * *",
+        });
+        habbitsObjStore.add({
+          name: "Sleep 3",
+          description: "Sleep 8 hours",
+          cron: "0 0 22 * * *",
+        });
+        habbitsObjStore.add({
+          name: "Sleep 4",
+          description: "Sleep 8 hours",
+          cron: "0 0 22 * * *",
+        });
       };
 
       openRequest.onsuccess = function (event) {

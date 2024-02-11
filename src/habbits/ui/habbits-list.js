@@ -5,6 +5,8 @@ template.innerHTML = `
           display: flex;
           flex-direction: column;
           overflow-y: auto;
+          margin-bottom: 100px;
+          margin-top: 80px;
       }
   </style>
 `;

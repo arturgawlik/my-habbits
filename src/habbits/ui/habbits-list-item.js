@@ -6,6 +6,9 @@ template.innerHTML = `
         margin-left: 10px;
         margin-right: 10px;
     }
+    a {
+        text-decoration: none;
+    }
     .card {
         padding: 10px;
         background-color: var(--color-3);
@@ -20,11 +23,13 @@ template.innerHTML = `
         font-weight: bold;
     }
 </style>
-<div class="card">
-    <div>
-        <p class="name"></p>
-    </div>
-</div>
+<a>
+  <div class="card">
+      <div>
+          <p class="name"></p>
+      </div>
+  </div>
+</a>
 `;
 
 export class HabbitsListItem extends HTMLElement {
@@ -45,12 +50,21 @@ export class HabbitsListItem extends HTMLElement {
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.appendChild(template.content.cloneNode(true));
-    shadowRoot.querySelector(".name").innerText = this.#habbit.name;
+    this.#setName(this.#habbit.name);
+    this.#setHref(`/habbits/${this.#habbit.name}`);
   }
 
   disconnectedCallback() {}
   adoptedCallback() {}
   attributeChangedCallback() {}
+
+  #setName(name) {
+    this.shadowRoot.querySelector(".name").innerText = name;
+  }
+
+  #setHref(href) {
+    this.shadowRoot.querySelector("a").href = href;
+  }
 }
 
 window.customElements.define("app-habbits-list-item", HabbitsListItem);

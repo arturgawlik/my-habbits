@@ -6,18 +6,14 @@ template.innerHTML = `
       :host {
           display: flex;
           flex-direction: column;
+          box-shadow: 2px 2px 2px var(--color-1);
+          border-bottom: 1px solid black;
       }
-      h1 {
-          text-align: center;
-          margin-top: 50px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
+
   </style>
-  <h1>Checkout your habbits</h1>
+  <app-top-header title="Habbits"></app-top-header>
   <app-habbits-list></app-habbits-list>
-  <app-add-habbit-button></app-add-habbit-button>
+  <app-bottom-button text="+ Add new +"></app-bottom-button>
 `;
 
 export class HabbitsMain extends HTMLElement {
@@ -25,13 +21,12 @@ export class HabbitsMain extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.appendChild(template.content.cloneNode(true));
-    getAllHabbits().then((habbits) => {
-      const habbitsList = this.shadowRoot.querySelector("app-habbits-list");
-      habbitsList.habbits = habbits;
-    });
+    const habbits = await getAllHabbits();
+    const habbitsList = this.shadowRoot.querySelector("app-habbits-list");
+    habbitsList.habbits = habbits;
   }
 
   disconnectedCallback() {}
