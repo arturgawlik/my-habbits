@@ -45,12 +45,7 @@ class AddEditHabbit extends HTMLElement {
     } else if (url.pathname.startsWith("/habbits")) {
       const id = url.pathname.split("/")[2];
       const habbit = await getHabbit(Number(id));
-      const form = this.shadowRoot.querySelector("form");
-      form.querySelector("input[name=id]").value = habbit.id;
-      form.querySelector("input[name=name]").value = habbit.name;
-      form.querySelector("input[name=description]").value = habbit.description;
-      form.querySelector("input[name=notificationTime]").value =
-        habbit.notificationTime;
+      this.shadowRoot.querySelector("app-habbit-form").habbit = habbit;
       this.shadowRoot
         .querySelector("app-top-header")
         .setAttribute("title", `Edit ${getTruncatedText(habbit.name)} habbit`);
@@ -74,8 +69,13 @@ class AddEditHabbit extends HTMLElement {
     const form = this.shadowRoot.querySelector("form");
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      // transform form data to object (but handle case where there is multiple notificationTime inputs)
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
+      const notificationTimes = Array.from(
+        formData.getAll("notificationTimes")
+      ).filter((time) => time);
+      data.notificationTimes = notificationTimes;
       if (data.id) {
         data.id = Number(data.id);
         updateHabbit(data).then(() => {
