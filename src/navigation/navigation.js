@@ -8,7 +8,6 @@ function listenNavigationEvent() {
     e.intercept({
       handler: performNavigationBasedOnUrl,
     });
-    console.log(e);
   });
 }
 
