@@ -28,6 +28,6 @@ export async function postHabbits(userId, habbits) {
 /**
  * @returns {string[]}
  */
-function getAllHabbits() {
+export function getAllHabbits() {
   return habbits;
 }

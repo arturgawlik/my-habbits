@@ -1,6 +1,6 @@
 import { getAllHabbits } from "./habbits.js";
 import webpush from "web-push";
-import keys from "./keys.json";
+import keys from "./keys.json" with { type: "json" };
 
 webpush.setVapidDetails(
   "mailto:hoofedcomic666@gmail.com",
@@ -8,10 +8,10 @@ webpush.setVapidDetails(
   keys.privateKey
 );
 
-export function startDispatchingPushNotifications() {
+export function startDispatchingPushNotifications() {``
   setInterval(() => {
     dispatchNotifications();
-  }, 1000);
+  }, 10_000);
 }
 
 function dispatchNotifications() {
