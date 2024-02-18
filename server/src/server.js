@@ -1,13 +1,11 @@
-import { createServer } from "node:http";
+import { IncomingMessage, ServerResponse, createServer } from "node:http";
 import { createReadStream } from "node:fs";
-import { getHabbits, postHabbits } from "./habbits.js";
+import { postHabbits } from "./habbits.js";
 import { postSubscrition } from "./subscribtions.js";
 
 const server = createServer(async (req, res) => {
   if (req.url === "/api/habbits" && req.method === "POST") {
     handlePostHabbits(req, res);
-  } else if (req.url === "/api/habbits" && req.method === "GET") {
-    await handleGetHabbits(req, res);
   } else if (req.url === "/api/push-subscriptions" && req.method === "POST") {
     handlePostSubscription(req, res);
   } else {
@@ -15,11 +13,15 @@ const server = createServer(async (req, res) => {
   }
 });
 
+/**
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function handleFileRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const path = url.pathname;
   const file = getFile();
-  const filePath = `../ui${file}`;
+  const filePath = `../client${file}`;
   res.statusCode = 200;
 
   if (file.endsWith(".html")) {
@@ -54,6 +56,10 @@ function handleFileRequest(req, res) {
   }
 }
 
+/**
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function handlePostSubscription(req, res) {
   const userId = getUserIdentifier(req, res);
   let body = "";
@@ -68,14 +74,10 @@ function handlePostSubscription(req, res) {
   });
 }
 
-async function handleGetHabbits(req, res) {
-  const userId = getUserIdentifier(req, res);
-  res.setHeader("Content-Type", "application/json");
-  const habbits = await getHabbits(userId);
-  res.write(JSON.stringify(habbits));
-  res.end();
-}
-
+/**
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function handlePostHabbits(req, res) {
   const userId = getUserIdentifier(req, res);
   let body = "";
@@ -90,6 +92,10 @@ function handlePostHabbits(req, res) {
   });
 }
 
+/**
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function getUserIdentifier(req, res) {
   const getUniqueIdentifier = () => {
     return Math.random().toString(36).substring(2) + Date.now().toString(36);

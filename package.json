@@ -3,10 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+        "start": "npm run start --prefix server",
+        "postinstall": "(cd server && npm install) && (cd client && npm install)"
+    },
     "author": "",
     "license": "ISC",
-    "devDependencies": {
-        "@web/dev-server": "^0.4.2"
-    }
+    "devDependencies": {}
 }
