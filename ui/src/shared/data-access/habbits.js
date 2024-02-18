@@ -1,12 +1,11 @@
 import { database } from "./database.js";
 
-const db = await database.get();
-
 /**
  * @returns {Promise<object[]>}
  */
 export async function getAllHabbits() {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    const db = await database.get();
     const transaction = db.transaction("habbits", "readonly");
     transaction.onerror = function (error) {
       reject(error);
@@ -28,7 +27,8 @@ export async function getAllHabbits() {
  * @returns {Promise<object>}
  */
 export async function getHabbit(habitId) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    const db = await database.get();
     const transaction = db.transaction("habbits", "readonly");
     transaction.onerror = function (error) {
       reject(error);
@@ -50,7 +50,8 @@ export async function getHabbit(habitId) {
  * @returns {Promise<void>}
  */
 export async function updateHabbit(habbit) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    const db = await database.get();
     const transaction = db.transaction("habbits", "readwrite");
     transaction.oncomplete = function () {
       resolve();
@@ -72,7 +73,8 @@ export async function updateHabbit(habbit) {
  * @returns {Promise<void>}
  */
 export async function addHabbit(habbit) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    const db = await database.get();
     const transaction = db.transaction("habbits", "readwrite");
     transaction.oncomplete = function () {
       resolve();
@@ -93,7 +95,8 @@ export async function addHabbit(habbit) {
  * @param {number} habitId
  */
 export async function removeHabbit(habitId) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    const db = await database.get();
     const transaction = db.transaction("habbits", "readwrite");
     transaction.oncomplete = function () {
       resolve();

@@ -1,3 +1,5 @@
+import { synchronize } from "./src/periodic-sync-with-be/sync-with-be.js";
+
 // async function addResourcesToCache(resources) {
 //   const cache = await caches.open("v1");
 //   await cache.addAll(resources);
@@ -49,4 +51,16 @@ self.addEventListener("push", (event) => {
   }
   const data = event.data.text();
   self.registration.showNotification(data);
+});
+
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-with-be") {
+    event.waitUntil(synchronize());
+  }
+});
+
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "sync-with-be") {
+    event.waitUntil(synchronize());
+  }
 });

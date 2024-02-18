@@ -22,7 +22,7 @@ export async function postSubscrition(userId, subscription) {
   if (!subscription) {
     throw new Error("subscription is required");
   }
-  habbits[userId] = subscription;
+  subscriptions[userId] = subscription;
 }
 
 /**

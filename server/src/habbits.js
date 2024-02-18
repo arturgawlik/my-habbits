@@ -1,4 +1,4 @@
-const habbits = {};
+const HABBITS = {};
 
 /**
  * @param {string} userId
@@ -8,7 +8,7 @@ export async function getHabbits(userId) {
   if (!userId) {
     throw new Error("userId is required");
   }
-  return habbits[userId] ?? [];
+  return copy(HABBITS[userId]) ?? [];
 }
 
 /**
@@ -19,15 +19,19 @@ export async function postHabbits(userId, habbits) {
   if (!userId) {
     throw new Error("userId is required");
   }
-  if (Array.isArray(habbits)) {
+  if (!Array.isArray(habbits)) {
     throw new Error("habbits array is required");
   }
-  habbits[userId] = habbits;
+  HABBITS[userId] = copy(habbits);
 }
 
 /**
  * @returns {string[]}
  */
 export function getAllHabbits() {
-  return habbits;
+  return copy(HABBITS);
+}
+
+function copy(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }

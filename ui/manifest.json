@@ -1,12 +1,6 @@
 {
     "name": "Habbits",
-    "icons": [
-        {
-            "src": "icons/512.png",
-            "type": "image/png",
-            "sizes": "512x512"
-        }
-    ],
+    "icons": [],
     "start_url": "/",
     "display": "fullscreen"
 }

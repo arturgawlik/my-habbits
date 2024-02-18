@@ -3,6 +3,7 @@ function registerSW() {
     try {
       const registration = navigator.serviceWorker.register("sw.js", {
         scope: "/",
+        type: "module",
       });
       if (registration.installing) {
         console.log("Service worker installing");

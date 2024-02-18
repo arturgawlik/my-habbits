@@ -1,6 +1,7 @@
 import { getAllHabbits } from "./habbits.js";
 import webpush from "web-push";
 import keys from "./keys.json" with { type: "json" };
+import { getSubscrition } from "./subscribtions.js";
 
 webpush.setVapidDetails(
   "mailto:hoofedcomic666@gmail.com",
@@ -11,29 +12,28 @@ webpush.setVapidDetails(
 export function startDispatchingPushNotifications() {``
   setInterval(() => {
     dispatchNotifications();
-  }, 10_000);
+  }, 60_000);
 }
 
-function dispatchNotifications() {
+async function dispatchNotifications() {
   const allHabbits = getAllHabbits();
   for (const [userId, habbits] of Object.entries(allHabbits)) {
     for (const habbit of habbits) {
       for (const notyficationTime of habbit.notificationTimes) {
         const now = new Date();
-        const notificationDate = new Date(notyficationTime);
         if (
-          now.getHours() === notificationDate.getHours() &&
-          now.getMinutes() === notificationDate.getMinutes()
+          now.getHours() === Number(notyficationTime.split(':')[0]) &&
+          now.getMinutes() === Number(notyficationTime.split(':')[1])
         ) {
-          dispatchNotification(userId, habbit);
+          await dispatchNotification(userId, habbit);
         }
       }
     }
   }
 }
 
-function dispatchNotification(userId, habbit) {
-  const subscription = getSubscrition(userId);
+async function dispatchNotification(userId, habbit) {
+  const subscription = await getSubscrition(userId);
   if (!subscription) {
     throw new Error(`Subscription not found for user ${userId}`);
   }

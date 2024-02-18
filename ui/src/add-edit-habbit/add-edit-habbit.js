@@ -3,6 +3,7 @@ import {
   addHabbit,
   updateHabbit,
 } from "../shared/data-access/habbits.js";
+import { synchronize } from "../periodic-sync-with-be/sync-with-be.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -87,6 +88,8 @@ class AddEditHabbit extends HTMLElement {
           navigation.navigate("/");
         });
       }
+
+      synchronize();
     });
   }
 
